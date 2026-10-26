@@ -6,4 +6,4 @@ Tipo: Windows Forms
 
 FrameWork: Net Framework 4.8.1
 
-Base de Datos : SQL Server
+Base de Datos : SQL Server - Script buscar dentro de la Carpeta: COMPLETE_FLAT_UI
