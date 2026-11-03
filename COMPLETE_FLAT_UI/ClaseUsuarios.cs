@@ -93,6 +93,31 @@ namespace COMPLETE_FLAT_UI
                 return false;
             }
         }
+        public static bool Func_EliminarUsuario(long id)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                SqlConnection conn = new SqlConnection(cadena);
+                SqlCommand cmd = new SqlCommand("PA_USUARIO_ELIMINAR", conn);
+                //el comando funciona como procedimiento almacenado
+                //SqlDataAdapter adap = new SqlDataAdapter("PA_USUARIO_TRAERTODOS", conn);
+                //adap.Sand.CommandType = CommandType.StoredProcedure;
+                cmd.CommandType = CommandType.StoredProcedure;
+                //envio todos los parametros del P.A
+                cmd.Parameters.AddWithValue("@id", id);
+                conn.Open();
+                cmd.ExecuteNonQuery();
+                conn.Close();
+                //adap.Fill(dt);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                excepcion = ex.ToString();
+                return false;
+            }
+        }
         public static string GetMd5Hash(string input)
         {
             using (MD5 md5Hash = MD5.Create())

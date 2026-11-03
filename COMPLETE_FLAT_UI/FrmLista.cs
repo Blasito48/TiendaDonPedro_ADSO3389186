@@ -24,8 +24,8 @@ namespace COMPLETE_FLAT_UI
             this.Close();
         }
 
-  
-        
+
+
 
         private void BtnCerrar_Click_1(object sender, EventArgs e)
         {
@@ -54,16 +54,16 @@ namespace COMPLETE_FLAT_UI
                 f.TxtNombres.Text = nombre;
                 f.TxtUsuario.Text = alias;
                 f.CbxRol.Text = rol;
-                f.TxtIDUsuario.Text=Id.ToString();
+                f.TxtIDUsuario.Text = Id.ToString();
                 f.ShowDialog();
             }
         }
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
-            if (LblTitulo.Text== "Lista de Usuarios")
+            if (LblTitulo.Text == "Lista de Usuarios")
             {
-                FrmUsuarios f= new FrmUsuarios();
+                FrmUsuarios f = new FrmUsuarios();
                 f.ShowDialog();
             }
 
@@ -71,7 +71,7 @@ namespace COMPLETE_FLAT_UI
 
         private void FrmLista_Activated(object sender, EventArgs e)
         {
-            
+
         }
 
         private void FrmLista_Load(object sender, EventArgs e)
@@ -81,6 +81,28 @@ namespace COMPLETE_FLAT_UI
                 DGVDatos.DataSource = ClaseUsuarios.Func_TraerTodo();
                 //oculto columna password
                 this.DGVDatos.Columns["PASSWORD_USUARIO"].Visible = false;
+            }
+        }
+
+        private void BtnEliminar_Click(object sender, EventArgs e)
+        {
+            if (this.LblTitulo.Text == "Lista de Usuarios")
+            {
+                long ideliminar = int.Parse(DGVDatos.CurrentRow.Cells["ID_USUARIO"].Value.ToString());
+                DialogResult rpta = new DialogResult();
+                rpta = MessageBox.Show("Desea Eliminar el ID-->" + ideliminar, "Advertencia!!!", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (rpta == DialogResult.OK)
+                {
+                    //llamo la funcion eliminar usuario
+                    if (ClaseUsuarios.Func_EliminarUsuario(ideliminar))
+                    {
+                        MessageBox.Show("Usuario Eliminado", "Felicitaciones!!!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Excepion-->" + ClaseUsuarios.excepcion, "Excepion!!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
         }
     }
