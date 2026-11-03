@@ -48,9 +48,33 @@ namespace COMPLETE_FLAT_UI
 
         private void BtnIniciar_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            FrmMenuPrincipal f = new FrmMenuPrincipal();
-            f.ShowDialog();
+            //encriptar MD5
+            string md5 = ClaseUsuarios.GetMd5Hash(TxtContraseña.Text);
+            //traer el MD5 de la base de datos
+            DataTable DtUsuario = new DataTable();
+            DtUsuario=ClaseUsuarios.Func_TraerPasswordUsuario(TxtUsuario.Text);
+            //pregunto si el DT esta vacio (No tiene filas)
+            if (DtUsuario.Rows.Count > 0)
+            {
+                string md5bd = DtUsuario.Rows[0]["PASSWORD_USUARIO"].ToString();
+                //comparo el hash generado contra el de la base de datos
+                if (md5 == md5bd)
+                {
+                    this.Hide();
+                    FrmMenuPrincipal f = new FrmMenuPrincipal();
+                    f.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Password Incorrecto", "Advertencia!!!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Usuario NO Existe", "Advertencia!!!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            
+           
         }
 
         private void FrmLogin_Activated(object sender, EventArgs e)
