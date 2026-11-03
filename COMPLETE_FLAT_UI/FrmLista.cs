@@ -79,6 +79,8 @@ namespace COMPLETE_FLAT_UI
             if (this.LblTitulo.Text == "Lista de Usuarios")
             {
                 DGVDatos.DataSource = ClaseUsuarios.Func_TraerTodo();
+                //oculto columna password
+                this.DGVDatos.Columns["PASSWORD_USUARIO"].Visible = false;
             }
         }
     }
